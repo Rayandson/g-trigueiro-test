@@ -19,7 +19,7 @@
     <div class="records-div">
         <div class="records-title-wrapper">
             <h1 class="records-title">Pendentes</h1>
-            <a href="{{ route("records") }}">Ver todos</a>
+            <a class="see-all" href="{{ route("records") }}">Ver todos</a>
         </div>
         <div class="records-wrapper">
             @if($records->count())
@@ -29,7 +29,6 @@
                     <a href="{{ asset("storage/" . $record->image_path) }}">
                         <img class="screen-img" src="{{ asset("storage/" . $record->image_path) }}" alt="Image">
                     </a>
-                    {{-- <img class="screen-img" src="{{ $record->image_path }}" alt=""> --}}
                     <div class="info-div">
                         <div class="main-info-div">
                             <p class="debtor">Devedor: {{ $record->debtor->name }}</p>
@@ -45,10 +44,12 @@
                 <div class="status-div">
                     @if($record->is_paid == true)
                     <div class="status-paid">
+                        <ion-icon class="checkmark" name="checkmark"></ion-icon>
                         <p>Pago</p>
                     </div>
                     @else
                     <div class="status-pending">
+                        <ion-icon class="timer" name="time-outline"></ion-icon>
                         <p>Pagamento pendente</p>
                     </div>
                     @endif
@@ -63,10 +64,13 @@
             </div>
             @endforeach
         @else
-            <p>Não ha registros</p>
+            <p class="no-results">Não há registros</p>
         @endif
         </div>
     </div>
     </div>
 </div>
+
 @endsection
+
+

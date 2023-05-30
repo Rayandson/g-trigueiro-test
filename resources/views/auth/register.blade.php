@@ -35,9 +35,10 @@
             </div>
             <div class="input-wrapper">
                 <label for="password" class="input-label">Confirme a senha</label>
-                <input type="password" name="password_confirmation" placeholder="Confirme sua senha" value={{ old("name") }}>
+                <input type="password" name="password_confirmation" placeholder="Confirme sua senha">
             </div>
             <button class="submit-button" type="submit">Cadastrar</button>
+            <p class="form-footer">Já possui uma conta? <a class="form-footer-link" href={{ route("signin") }}>Entrar</a></p>
         </form>
     </div>
 </div>

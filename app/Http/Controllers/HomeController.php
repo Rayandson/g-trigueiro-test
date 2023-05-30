@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
+
         $records = Record::where('is_paid', false)
         ->orderBy('created_at', 'desc')
         ->get();

@@ -34,6 +34,7 @@
                    <label for="remember">Manter conectado</label>
                 </div>
             <button class="submit-button" type="submit">Entrar</button>
+            <p class="form-footer">Não possui uma conta? <a class="form-footer-link" href={{ route("register") }}>Cadastrar</a></p>
         </form>
     </div>
 </div>

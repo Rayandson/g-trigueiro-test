@@ -29,10 +29,12 @@
                     <div class="status-div">
                         @if($record->is_paid == true)
                         <div class="status-paid">
+                            <ion-icon class="checkmark" name="checkmark"></ion-icon>
                             <p>Pago</p>
                         </div>
                         @else
                         <div class="status-pending">
+                            <ion-icon class="timer" name="time-outline"></ion-icon>
                             <p>Pagamento pendente</p>
                         </div>
                         @endif

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class RecordController extends Controller
 {
@@ -26,7 +27,7 @@ class RecordController extends Controller
 
 public function index() {
     $users = User::get();
-    $records = Record::orderBy('created_at', 'desc')->get();
+    $records = Record::orderBy("created_at", "desc")->get();
     return view("allRecords.index", [
         "users" => $users,
         "records" => $records
@@ -34,8 +35,15 @@ public function index() {
 }
 
 public function newRecord() {
-    $users = User::get();
+    $users = User::orderBy("name")->get();
     return view("newRecord.index", [
+        "users" => $users
+    ]);
+}
+
+public function test() {
+    $users = User::get();
+    return view("newRecord.test", [
         "users" => $users
     ]);
 }
@@ -68,31 +76,24 @@ public function create(Request $request)
             "hasSoda" => $hasSoda
         ]);
     } else {
-        $this->validate($request, [
-            "image" => "required",
-        ]);
+        $base64Image = $request->input('image');
+        $image = base64_decode($base64Image);
 
-        $imageData = $request->input('image');
+        $filename = uniqid().'.png';
 
-        // Generate a unique filename for the image
-        $filename = uniqid('image_') . '.png';
-        // Save the image in the storage directory
+        $imagePath = storage_path('app/public/' . $filename);
 
-        Storage::disk('public')->put($filename, $imageData);
-            // Save the image path in the database by creating a new record
-
-        $directory = 'storage/app/public/';
-        $path = $directory . $filename;
+        File::put($imagePath, $image);
         $userId = auth()->user()->id;
+        $debtorId = $request->input("select");
 
             Record::create([
                 "image_path" => $filename,
                 "user_id" => $userId,
-                "debtor_id" => 4
+                "debtor_id" => $debtorId
             ]);
     }
 
-        // Perform any additional actions on successful image saving
         return redirect()->back()->with('success', 'Image saved successfully!');
     }
 

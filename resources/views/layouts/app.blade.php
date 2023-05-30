@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
     @vite('resources/css/globalStyle.css')
+    @vite('resources/js/app.js')
     <title>G Trigueiro</title>
 </head>
 <body>
@@ -19,15 +20,16 @@
                 <a href="/">Home</a>
             </li>
             <li>
-                <a href="{{ route("records") }}">Registros</a>
+                <a class="registers-menu" href="{{ route("records") }}">Registros</a>
             </li>
             @endauth
         </ul>
         <ul class="secondary-menu">
             @auth
             <li>
-                <a class="username" href="">
-                    <ion-icon class="person-icon" name="person"></ion-icon>{{ auth()->user()->name }}
+                <a class="user" href="">
+                    <ion-icon class="person-icon" name="person"></ion-icon>
+                    <p class="username">{{ auth()->user()->name }}</p>
                 </a>
             </li>
             <li>

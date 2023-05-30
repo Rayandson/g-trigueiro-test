@@ -23,79 +23,83 @@
         <p class="division-text">Ou</p>
         <button id="open-camera-btn"><ion-icon class="camera-icon" name="camera"></ion-icon>Usar a câmera</button>
         <div class="camera-container hidden">
-            <video id="camera-preview" autoplay></video>
-            <button id="capture-btn"><ion-icon class="capture-camera-icon" name="camera"></ion-icon></button>
+             <div id="my-camera"></div>
+             <button class="capture-btn"><ion-icon class="capture-camera-icon" name="camera"></ion-icon></button>
+             <div id="results"></div>
         </div>
-        <button id="record-submit-button">Enviar</button>
+        <button id="record-submit-button" disabled>Enviar</button>
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+
 <script>
-    // Get the necessary DOM elements
-    const cameraPreview = document.getElementById("camera-preview");
-    const openCameraButton = document.getElementById("open-camera-btn");
-    const captureButton = document.getElementById("capture-btn");
-    const recordForm = document.getElementById("record-form");
-    const fileInput = document.querySelector(".file-input");
-    const imageInput = document.getElementById("image-input");
-    const fileNameSpan = document.getElementById("file-name");
-    const submitButton = document.getElementById("record-submit-button");
-    const cameraContainer = document.querySelector(".camera-container");
+    // const openCameraButton = document.getElementById("open-camera-btn");
+    // const saveSnapButton = document.querySelector(".capture-btn");
+    // const recordForm = document.getElementById("record-form");
+    // const fileNameSpan = document.getElementById("file-name");
+    // const submitButton = document.getElementById("record-submit-button");
+    // const cameraContainer = document.querySelector(".camera-container");
+    // const formSelect = document.querySelector(".form-select");
+    // const fileInput = document.querySelector(".file-input");
+    // const myCamera = document.getElementById("my-camera")
 
-    fileInput.addEventListener("change", (event) => {
-    const files = event.target.files;
-    if (files.length > 0) {
-        fileNameSpan.textContent = files[0].name;
-    } else {
-        fileNameSpan.textContent = "Escolher um arquivo";
-    }
-    });
+    // function configure() {
+    //     cameraContainer.classList.remove("hidden");
+    //     submitButton.scrollIntoView({ behavior: "smooth" });
+    //     Webcam.set({
+    //         width: 580,
+    //         height: 440,
+    //         image_format: "png",
+    //         png_quality: 90
+    //     });
 
-    submitButton.addEventListener("click", (event => {
-        recordForm.submit();
-        alert("Imagem cadastrada!");
-    }))
+    //     Webcam.attach("#my-camera");
 
-    // Function to open the camera
-    function openCamera() {
-        // Access the device camera
-        cameraContainer.classList.remove("hidden");
-        captureButton.scrollIntoView({ behavior: "smooth" });
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                // Set the camera stream as the source for the video element
-                cameraPreview.srcObject = stream;
-                // Enable the capture and submit buttons
-                captureButton.disabled = false;
-                // recordForm.querySelector("button[type="submit"]").disabled = false;
-            })
-            .catch(error => {
-                console.error("Error accessing camera:", error);
-            });
-    }
+    // }
 
-    // Function to capture the picture
-    function capturePicture() {
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        canvas.width = cameraPreview.videoWidth;
-        canvas.height = cameraPreview.videoHeight;
-        context.drawImage(cameraPreview, 0, 0, canvas.width, canvas.height);
+    // function saveSnap() {
+    //     saveSnapButton.classList.add("hidden");
+    //     myCamera.classList.add("hidden");
 
-        // Convert the canvas image to a Data URL
-        const imageDataUrl = canvas.toDataURL("image/png");
+    //     Webcam.snap(function(data_uri) {
+    //         document.getElementById("results").innerHTML = '<img id="webcam" src="'+ data_uri +'">';
+    //         submitButton.disabled = false;
+    //     });
 
-        // Set the image data as the value of the hidden input field
-        imageInput.value = imageDataUrl;
+    //     Webcam.reset();
 
-        recordForm.submit();
-        alert("Imagem cadastrada!");
-    }
+    //     let base64image = document.getElementById("webcam").src;
+    //     document.getElementById("image-input").value = base64image;
+    // }
 
-    // Add event listener to the open camera button
-    openCameraButton.addEventListener("click", openCamera);
+    // saveSnapButton.addEventListener("click", saveSnap);
 
-    // Add event listener to the capture button
-    captureButton.addEventListener("click", capturePicture);
+    // fileInput.addEventListener("change", (event) => {
+    // const files = event.target.files;
+    // handleFormValidation();
+    // if (files.length > 0) {
+    //     fileNameSpan.textContent = files[0].name;
+    // } else {
+    //     fileNameSpan.textContent = "Escolher um arquivo";
+    // }
+    // });
+
+    // submitButton.addEventListener("click", (event => {
+    //     recordForm.submit();
+    //     alert("Imagem cadastrada!");
+    // }))
+
+    // function handleFormValidation() {
+    // if (formSelect.value !== "Selecione um usuário" && fileInput.files.length > 0) {
+    //     submitButton.disabled = false;
+    // } else {
+    //     submitButton.disabled = true;
+    // }
+    // }
+
+    // formSelect.addEventListener("change", handleFormValidation);
+
+    // openCameraButton.addEventListener("click", configure);
 </script>
 @endsection
